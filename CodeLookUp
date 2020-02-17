@@ -1,0 +1,145 @@
+creates dictionary:
+#include <map>
+map<string, int> dict;
+
+#include <vector>
+vectors
+vector<int> A{ 10, 20, 30, 40 };
+vector<int>slice = vector<int>(A.begin() + 1, A.end());
+vector<int> states(A.size(), 0);
+v1.insert(v1.begin() + idx, val); /// slow
+v.push_back(4); /// slow
+v.push_back(14);
+v.pop_back();
+v.erase(v.begin()); ///To remove the first element, we can use function erase():
+ v.erase(v.begin()+4); ///(erases the fifth element of the vector v)
+v.front(); First element access with function front();
+v.back(); ////Last element access with function back();
+
+Set: sort and uniqe of vector:
+sort(A.begin(), A.end());
+A.erase(unique(A.begin(), A.end()), A.end());
+
+index:
+    vector<int> vecOfNums = { 12, 45, 54, 33, 2, 7, 8, 22, 43, 19 };
+    vector<int>::iterator it = std::find(vecOfNums.begin(), vecOfNums.end(), 22);
+    int index = distance(vecOfNums.begin(), it);
+    cout << index << endl;
+
+find unsorted: 
+find(v.begin(), v.end(),value)!=v.end()
+
+find sorted:
+vector<int>::iterator it = lower_bound(A.begin(), A.end(), i);
+if (it != A.end() && *it == i) 
+
+
+Ex:v.erase(v.begin()+2,v.begin()+5);(erases all the elements from the third element to the fifth element.)
+Ex: v.erase(v.begin()+4); (erases the fifth element of the vector v)
+
+
+Strings:
+position = str.find (' '); //Finds FIRST accurance of space
+str.find (' ') != string::npos /// No spaces in string
+if (text.find_first_of ("aeiouAEIOU") == string::npos) /// checks all vowels at once
+string subs = text.substr(4); /// substring from index 4
+text.erase (5,5); /// erase 5 characters from idx 5
+text.replace (5,2,"was");
+string s = "a_b_c__";
+size_t n = count(s.begin(), s.end(), '_');
+cout << "Occurence in string " << n << endl;
+int a = stoi(ch); /// string to int
+const char* hej = "2"; /// constant char to int
+int b = atoi(hej);
+to_string(10 + 20) /// int to string
+
+#include <sstream>
+ostringstream mySstream;
+cout << mySstream.str();
+
+#Array
+array<int, 5> arr{ 1, 2, 3, 4, 5 };
+a[3][4] = { {0,1,2}, {4,5,6,7}, {8,9,10,11} }; /// 2D array
+
+Random
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+srand(unsigned(time(0)));
+random_shuffle(arr.begin(), arr.end());
+
+Structs:
+struct car { char *make; char *model; int year; }; // declares the struct type
+// declares and initializes an object of a previously-declared struct type
+struct car c = {.year=1923, .make="Nash", .model="48 Sports Touring Car"};
+printf("car: %d %s %s\n", c.year, c.make, c.model);
+
+
+Lists:
+list<int> myList (4, 100);
+for (int i = 1; i <= 5; i++){
+	myList.emplace_back(i);
+}
+for (int& x : myList) {
+     cout << x << " ";
+}
+cout << endl;
+list1.assign(10, 0);
+it = myList.begin();
+advance(it, 4);
+cout << *it << endl;
+
+
+Nodes:
+node* head = new node;
+node* curr = head;
+
+struct node
+  {
+    int data;
+    node *next;
+  };	
+
+
+Class:
+class list
+  {
+    Private:
+    node *head, *tail;
+    public:
+    list()
+    {
+      head=NULL;
+      tail=NULL;
+    }
+  };	
+
+Inheritance:
+class Child : public Parent 
+{ 
+    public: 
+      int id_c; 
+}; 
+
+
+iterator:
+auto it = name.begin();
+it == name.end()-1;
+if (s[idx] == *it){
+advance(it, 1); 
+auto i = std::distance(v.begin(), it);  /// index of iterator position
+
+Take time/ time function:
+#include <chrono> 
+auto start = chrono::high_resolution_clock::now();
+/// function
+srand(unsigned(time(0)));
+array<int, 100000> arr{ 1};
+random_shuffle(arr.begin(), arr.end());
+/// end function
+auto stop = chrono::high_resolution_clock::now();
+auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+cout << duration.count()/1000000.0 <<  " seconds" << endl;
+
+
+
+ If you want to add elements to your container or remove elements from your container, use a std::vector; if not, use a std::array.
