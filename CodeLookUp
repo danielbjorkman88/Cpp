@@ -16,6 +16,13 @@ v.erase(v.begin()); ///To remove the first element, we can use function erase():
 v.front(); First element access with function front();
 v.back(); ////Last element access with function back();
 
+
+multimap
+#include <map>
+multimap<int , int> mp;
+mp.insert({2,10});
+
+
 Set: sort and uniqe of vector:
 sort(A.begin(), A.end());
 A.erase(unique(A.begin(), A.end()), A.end());
