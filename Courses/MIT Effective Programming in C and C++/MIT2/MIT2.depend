@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1589964725 source:c:\users\malyr\onedrive\dokument\github\cpp\mit2\main.c
+	<stdio.h>
+	<stdlib.h>
+
