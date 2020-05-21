@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1590062486 source:c:\users\malyr\onedrive\dokument\github\cpp\mit course effective programming in c and c++\mit4\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
