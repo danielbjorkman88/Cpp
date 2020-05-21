@@ -35,8 +35,6 @@ char* reverse( char str[], char rev[], size_t length ) {
 
 char* encrypt( char str[], size_t length ) {
 
-
-
     if (length <= 2){
         return str;
     };
@@ -62,8 +60,6 @@ char* encrypt( char str[], size_t length ) {
     char *rev2 = (char*) malloc(length2);
 
     splitString2(str,sub1, sub2, length1, length2);
-
-
 
     reverse(sub1, rev1, length1);
     reverse(sub2, rev2, length2);
