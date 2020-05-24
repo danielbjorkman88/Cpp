@@ -22,6 +22,20 @@ List_node* create_node( int value ) {
 
 // Implement this
 void list_append( List *list, int value ) {
+
+
+if (list->front == NULL){
+    list->front = create_node(value);
+}
+else {
+    List_node *node = list->front;
+    while (node->next != NULL){
+        node = node->next;
+    }
+    node->next = create_node(value);
+}
+++list->length;
+
   /* Function to append a new node containing 'value'
    * to the end of List *list. For example,
    * applied to { 5 -> 10 } as
@@ -32,6 +46,26 @@ void list_append( List *list, int value ) {
 
 // Implement this
 void list_insert_before( List *list, int insert, int before ) {
+
+
+if (list->front == NULL){
+    list->front = create_node(insert);
+}
+else {
+    List_node *node = list->front;
+    while (node->next != NULL) {
+
+        if (node->next->value == before){
+            List_node *newNode = create_node(insert);
+            newNode ->next = node->next;
+            node->next = newNode;
+            ++list->length;
+            break;
+        }
+        node = node->next;
+    }
+}
+
   /* This function should take a pointer to a List *list,
    * a value to insert 'insert', and a value to insert before 'before'.
    * A new node should be inserted directly before the first
@@ -47,6 +81,21 @@ void list_insert_before( List *list, int insert, int before ) {
 
 // Implement this
 void list_delete( List *list, int value ) {
+
+if (list->front == NULL){
+    ;
+}
+else {
+    List_node *node = list->front;
+    while (node->next != NULL) {
+
+        if (node->next->value == value){
+            node->next = node->next->next;
+            --list->length;
+        }
+        node = node->next;
+    }
+}
   /* Delete all occurrences of the value 'value' in list.
    * For example, starting with { 0 -> 5 -> 4 -> 5 }
    * call list_delete( list, 5 ):
@@ -58,26 +107,28 @@ void list_delete( List *list, int value ) {
 
 // Implement this
 void list_apply( List *list, int (*function_ptr)(int) ) {
+hej;
   /* Applies the function pointed to by function_ptr
    * to every value at nodes in list 'list'.
    * For example, starting with { 1 -> 2 -> 3 } and
-   * a function 
+   * a function
    *
    *     int sq(int x) { return x * x; }
-   * 
+   *
    * call to list_apply( list, sq );
    * results in { 1 -> 4 -> 9 }
    */
 }
 
 int list_reduce( List *list, int (*function_ptr)(int, int) ) {
+  ;
   /* Takes an associative function pointed to by function_ptr
    * and returns the result of reducing the list with it.
    * For example, starting with { 1 -> 2 -> 3 } and
    * a function
    *
    *    int plus( int x, int y ) { return x + y; }
-   * 
+   *
    * list_reduce( list, plus );
    * will return 1 + 2 + 3 = 6.
    * If the provided list contains 0 elements,
