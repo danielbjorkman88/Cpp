@@ -72,45 +72,6 @@ else{
     fprintf( output, "%d", 0 );
 }
 
-/*
-
-  for( int r = 0; r < OutMatrix.R; ++r ) {
-    for( int c = 0; c < OutMatrix.C; ++c ) {
-        printf( "%d ", OutMatrix.index[r][c] );
-    }
-  }
-
-
-
-
-fscanf( input, "%d %d", &matrixA.R, &matrixA.C );
-
-
-
-int a,b;
-fscanf( input, "%d", &matrixA.index[0][0] );
-printf("%d\n", matrixA.index[0][0]);
-fscanf( input, "%d", &matrixA.index[0][1] );
-printf("%d\n", matrixA.index[0][1]);
-fscanf( input, "%d", &matrixA.index[1][0] );
-printf("%d\n", matrixA.index[1][0]);
-fscanf( input, "%d", &matrixA.index[1][1] );
-printf("%d\n", matrixA.index[1][1]);
-
-
-double a;
-
-
-  for( int r = 0; r < matrixA.R; ++r ) {
-    for( int c = 0; c < matrixA.C; ++c ) {
-        fscanf( input, "%d", &matrixA.index[r][c] );
-    }
-  }
-printf("%d %d\n", matrixA.R, matrixA.C);
-printf("%d\n", matrixA.index[0][0]);
-
-*/
-
 
   fclose( output );
 
