@@ -107,7 +107,13 @@ else {
 
 // Implement this
 void list_apply( List *list, int (*function_ptr)(int) ) {
-hej;
+    List_node *node = list->front;
+
+    while(node != NULL){
+        node->value = (*function_ptr)( node->value );
+        node->node->next;
+    }
+
   /* Applies the function pointed to by function_ptr
    * to every value at nodes in list 'list'.
    * For example, starting with { 1 -> 2 -> 3 } and
@@ -121,7 +127,18 @@ hej;
 }
 
 int list_reduce( List *list, int (*function_ptr)(int, int) ) {
-  ;
+
+    if (list->front == NULL){
+        return 0;
+    }
+
+    List_node *node = list->front;
+
+    int result = 0;
+    while(node != NULL){
+        result = (*function_ptr)( result, p->value );
+        node->node->next;
+    }
   /* Takes an associative function pointed to by function_ptr
    * and returns the result of reducing the list with it.
    * For example, starting with { 1 -> 2 -> 3 } and
