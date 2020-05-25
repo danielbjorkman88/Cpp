@@ -58,6 +58,12 @@ std::ostream& operator<<( std::ostream &os, const Rational &ratio ) {
  * to set one with a zero denominator.
  */
 void Rational::normalize() {
+    if (_dem == 0){
+        Rational::bad_rational();
+    }
+
+
+
   // You should implement
 }
 
