@@ -16,10 +16,10 @@ Rational::sign_type Rational::sign() const {
 
     Rational::sign_type sign;
 
-    if (_num > 0 && _dem > 0){
+    if (_num > 0 && _den > 0){
         sign = POSITIVE;
     }
-    else if (_num < 0 && _dem < 0){
+    else if (_num < 0 && _den < 0){
         sign = POSITIVE;
     }
     else{
@@ -58,7 +58,7 @@ std::ostream& operator<<( std::ostream &os, const Rational &ratio ) {
  * to set one with a zero denominator.
  */
 void Rational::normalize() {
-    if (_dem == 0){
+    if (_den == 0){
         Rational::bad_rational();
     }
 

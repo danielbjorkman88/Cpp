@@ -28,10 +28,12 @@ public:
 std::ostream& operator<<( std::ostream &os, const Rational &ratio );
 
 inline bool operator==( const Rational &lhs, const Rational &rhs ) {
+    return true;
   // You should implement
 }
 
 inline bool operator<( const Rational &lhs, const Rational &rhs ) {
+    return true;
   // You should implement
 }
 
