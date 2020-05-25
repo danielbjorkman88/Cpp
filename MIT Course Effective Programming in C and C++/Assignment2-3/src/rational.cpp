@@ -7,15 +7,29 @@
 
 // Implement this
 const Rational Rational::inverse() const {
+    return Rational{ _den, _num };
   /* Return the Rational number 1 / current rational */
 }
 
 // Implement this
 Rational::sign_type Rational::sign() const {
+
+    Rational::sign_type sign;
+
+    if (_num > 0 && _dem > 0){
+        sign = POSITIVE;
+    }
+    else if (_num < 0 && _dem < 0){
+        sign = POSITIVE;
+    }
+    else{
+        sign = NEGATIVE;
+    }
+    return sign;
   /* Return, as a sign_type, the sign of the Rational */
 }
 
-/* Print the value num/den to the supplied output stream, or 0 if 
+/* Print the value num/den to the supplied output stream, or 0 if
  * the Rational happens to be identically zero.
  */
 std::ostream& operator<<( std::ostream &os, const Rational &ratio ) {
@@ -30,7 +44,7 @@ std::ostream& operator<<( std::ostream &os, const Rational &ratio ) {
   return os;
 }
 
-/* This function will be called whenever the 
+/* This function will be called whenever the
  * Rational is constructed from integers that
  * are supplied as numerator and denominator.
  * It should reduce the fraction to lowest terms;
