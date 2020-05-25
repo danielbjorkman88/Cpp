@@ -111,7 +111,7 @@ void list_apply( List *list, int (*function_ptr)(int) ) {
 
     while(node != NULL){
         node->value = (*function_ptr)( node->value );
-        node->node->next;
+        node=node->next;
     }
 
   /* Applies the function pointed to by function_ptr
@@ -136,8 +136,8 @@ int list_reduce( List *list, int (*function_ptr)(int, int) ) {
 
     int result = 0;
     while(node != NULL){
-        result = (*function_ptr)( result, p->value );
-        node->node->next;
+        result = (*function_ptr)( result, node->value );
+        node=node->next;
     }
   /* Takes an associative function pointed to by function_ptr
    * and returns the result of reducing the list with it.

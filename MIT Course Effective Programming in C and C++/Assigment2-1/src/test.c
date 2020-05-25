@@ -16,6 +16,12 @@ int main(void) {
   for( int i = 0; i < N; ++i ) {
     list_append( &list, i );
   }
+  list_apply( &list, &sq );
+  /*
+  list_insert_before( &list, 10, 4 );
+  list_delete( &list, 3 );
+*/
+    printf("%i \n", list_reduce( &list, &plus ));
 
   list_print( list );
   list_clear( &list );
