@@ -4,13 +4,14 @@
 #include <iostream>
 
 int main() {
-  try { 
+  try {
     int N = 100;
     List olist{};
 
     for( int i = 0; i < N; ++i ) {
       olist.append( i );
     }
+    olist.print();
 
     List olist2{};
     olist2 = olist;
