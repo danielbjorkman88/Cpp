@@ -1,9 +1,11 @@
 #ifndef _6S096_RATIONAL_H
 #define _6S096_RATIONAL_H
-
+#include <iostream>
 #include <cstdint>
 #include <iosfwd>
 #include <stdexcept>
+
+using namespace std;
 
 class Rational {
   intmax_t _num, _den;
@@ -28,12 +30,19 @@ public:
 std::ostream& operator<<( std::ostream &os, const Rational &ratio );
 
 inline bool operator==( const Rational &lhs, const Rational &rhs ) {
-    return true;
+
+    if (lhs.num() * rhs.den() == rhs.num() * lhs.den()){
+        return true;
+    }
+    else{
+        return false;
+    }
   // You should implement
 }
 
 inline bool operator<( const Rational &lhs, const Rational &rhs ) {
-    return true;
+
+return lhs.num()* rhs.den() < lhs.num()* rhs.den();
   // You should implement
 }
 
@@ -51,14 +60,22 @@ inline Rational operator*( const Rational &a, const Rational &b ) {
 }
 
 inline Rational operator+( const Rational &a, const Rational &b ) {
+
+        return Rational{ a.num()* b.den() + b.num()* a.den(), a.den() * b.den() };
+
+
   // You should implement
 }
 
 inline Rational operator-( const Rational &a, const Rational &b ) {
+
+return Rational{ a.num()* b.den() - b.num()* a.den(), a.den() * b.den() };
+
   // You should implement
 }
 
 inline Rational operator/( const Rational &a, const Rational &b ) {
+    return Rational{ a.num() * b.den(), a.den() * b.num() };
   // You should implement
 }
 

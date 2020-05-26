@@ -5,6 +5,8 @@
 #include <ostream>
 #include <iostream>
 
+using namespace std;
+
 // Implement this
 const Rational Rational::inverse() const {
     return Rational{ _den, _num };
@@ -25,6 +27,7 @@ Rational::sign_type Rational::sign() const {
     else{
         sign = NEGATIVE;
     }
+
     return sign;
   /* Return, as a sign_type, the sign of the Rational */
 }
@@ -59,20 +62,37 @@ std::ostream& operator<<( std::ostream &os, const Rational &ratio ) {
  */
 void Rational::normalize() {
     if (_den == 0){
-        Rational::bad_rational();
+        throw bad_rational();
     }
 
+    auto divider = gcd( abs(_num), abs(_den) );
 
+    _num = _num/divider;
+    _den = _den/divider;
+
+      if( _den < 0 ) {
+        _num = -_num;
+        _den = -_den;
+      }
 
   // You should implement
 }
 
 // Return the float precision number corresponding to the Rational
 float Rational::to_float() const {
+
+    float out = float(_num) / float(_den);
+
+    return out;
   // You should implement
 }
 
 // Return the double precision number corresponding to the Rational
 double Rational::to_double() const {
+
+    double out = double(_num) / double(_den);
+
+
+    return out;
   // You should implement
 }
