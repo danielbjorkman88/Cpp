@@ -16,6 +16,7 @@ int main() {
   for( int i = 0; i < 40; ++i ) {
     phi = 1 / ( 1 + phi );
   }
+
   std::cout << std::setprecision( 15 );
   std::cout << "phi = " << ( 1 + phi ).to_double() << "\n";
 
