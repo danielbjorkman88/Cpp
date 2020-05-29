@@ -10,7 +10,7 @@ List::List() : _length{0}, _begin{ nullptr }, _back{ nullptr } {}
 List::List( const List &list ) : _length{0}, _begin{nullptr}, _back{nullptr} {
   for( auto it = list.begin(); it != list.end(); ++it ) {
     append( *it );
-  } 
+  }
 }
 
 List& List::operator=( const List &list ) {
@@ -18,7 +18,7 @@ List& List::operator=( const List &list ) {
     clear();
     for( auto it = list.begin(); it != list.end(); ++it ) {
       append( *it );
-    } 
+    }
   }
   return *this;
 }
@@ -59,54 +59,29 @@ List::iterator List::end() { return iterator{ nullptr }; }
 List::const_iterator List::end() const { return const_iterator{ nullptr }; }
 
 void List::append( int theValue ) {
-  auto *newNode = ListNode::create( theValue );
+    ListNode *node = ListNode::create( theValue);
 
-  if( empty() ) {
-    newNode->setNext( _back );
-    _begin = newNode;
-  } else {
-    newNode->insertAfter( _back );
-  }
+    if (empty()){
+        _begin = node;
+    }
+    else{
+        newNode->insertAfter( _back );
+        _back = node;
+    }
 
-  _back = newNode;
-  ++_length;
+    ++_length;
 }
 
 void List::deleteAll( int theValue ) {
-  if( !empty() ) {
-    // Delete from the front
-    while( _begin->value() == theValue && _begin != _back ) {
-      auto *newBegin = _begin->next();
-      delete _begin;
-      _begin = newBegin;
-      --_length;
-    }
+    if (!empty()){
+            auto curr = _begin;
 
-    auto *p = _begin;
+            while (curr != NULL){
 
-    if( _begin != _back ) {
-      // Normal deletion from interior of list
-      for( ; p->next() != _back; ) {
-        if( p->next()->value() == theValue ) {
-          ListNode::deleteNext( p );
-          --_length;
-        } else {
-          p = p->next();
+            }
+
         }
-      }
 
-      // Deleting the last item
-      if( _back->value() == theValue ) {
-        ListNode::deleteNext( p );
-        _back = p;
-        --_length;
-      }
-    } else if( _begin->value() == theValue ) {
-      // Deal with the case where we deleted the whole list
-      _begin = _back = nullptr;
-      _length = 0;
-    }
-  }
 }
 
 List::iterator List::find( iterator s, iterator t, int needle ) {
@@ -119,29 +94,11 @@ List::iterator List::find( iterator s, iterator t, int needle ) {
 }
 
 void List::insert( iterator pos, int theValue ) {
-  auto *posPtr = node( pos );
-  auto *newNode = ListNode::create( theValue );
-  newNode->insertAfter( posPtr );
-  ++_length;
+
 }
 
 void List::insertBefore( int theValue, int before ) {
-  if( !empty() ) {
-    if( _begin->value() == before ) {
-      auto *newNode = ListNode::create( theValue );
-      newNode->setNext( _begin );
-      _begin = newNode;
-      ++_length;
-    } else {
-      auto *p = _begin;
-      for( ; p != _back && p->next()->value() != before; p = p->next() );
-      if( p != _back && p->next()->value() == before ) {
-        auto *newNode = ListNode::create( theValue );
-        newNode->insertAfter( p );
-        ++_length;
-      }
-    }
-  }
+
 }
 
 void List::apply( const ApplyFunction &interface ) {
@@ -153,23 +110,9 @@ int List::reduce( const ReduceFunction &interface ) const {
 }
 
 void List::print() const {
-  std::cout << "{ ";
-  for( auto it = begin(); it != back(); ++it ) {
-    std::cout << *it << " -> ";
-  }
-  if( !empty() ) {
-    std::cout << *back() << " ";
-  }
-  std::cout << "}\n";
+
 }
 
 void List::clear() {
-  for( auto *p = _begin; p != nullptr; ) {
-    auto *p_next = p->next();
-    delete p;
-    p = p_next;
-  }
-  _length = 0;
-  _begin = nullptr;
-  _back = nullptr;
+
 }
