@@ -14,8 +14,11 @@ int main() {
     olist.print();
 
     List olist2{};
+    std::cout << "olist2 defined" << std::endl;
     olist2 = olist;
+    std::cout << "olist copied over to olist2" << std::endl;
     olist2.append( 5 );
+
 		olist2.deleteAll( 0 );
 		olist2.deleteAll( N );
 		olist2.deleteAll( N - 1 );
