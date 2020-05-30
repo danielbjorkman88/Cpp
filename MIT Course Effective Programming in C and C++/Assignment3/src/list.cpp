@@ -75,7 +75,17 @@ void List::append( int theValue ) {
 
 void List::deleteAll( int theValue ) {
     ListNode *curr = _begin;
+
+    /// Single list item
+    if (!empty() && _begin == _back && curr->value() == theValue){
+      delete _begin;
+      _begin = _back = nullptr;
+      _length = 0;
+    }
+
+
     if (!empty()){
+        std::cout << "Front not empty. Length = "<< _length << std::endl;
         while (_begin->value() == theValue && _begin != _back){
             ListNode *first = _begin;
             if (first->value() == theValue){
@@ -87,7 +97,11 @@ void List::deleteAll( int theValue ) {
 
 
 
+    if( _begin != _back ) {
 
+
+        curr = _begin;
+        ///std::cout << "mid not empty. Length = "<< _length  << std::endl;
         while (curr->next() != NULL && curr != _back){
             if (curr->next()->value() == theValue){
                 ListNode::deleteNext( curr );
@@ -97,21 +111,28 @@ void List::deleteAll( int theValue ) {
         }
 
 
-    if (_back->value() == theValue){
         curr = _begin;
+        ///std::cout << "Back not empty. Length = "<< _length  << std::endl;
+        if (_back->value() == theValue){
 
-        while (curr->next() != _back){
-            curr = curr->next();
+            while (curr->next() != _back){
+                curr = curr->next();
+            }
+            _back = curr;
+            delete curr->next();
+            --_length;
+
         }
-        _back = curr;
-        delete curr->next();
-        --_length;
-
     }
-    }else{
+    else if( _begin->value() == theValue && _back == _begin ){
+      delete _begin;
       _begin = _back = nullptr;
       _length = 0;
+
     }
+
+}
+
 }
 
 List::iterator List::find( iterator s, iterator t, int needle ) {
@@ -144,19 +165,26 @@ void List::insertBefore( int theValue, int before ) {
           newNode->setNext( _begin );
           _begin = newNode;
           ++_length;
-        } else {
-          auto *p = _begin;
-          for( ; p != _back && p->next()->value() != before; p = p->next() );
-          if( p != _back && p->next()->value() == before ) {
-            auto *newNode = ListNode::create( theValue );
-            newNode->insertAfter( p );
-            ++_length;
+        }
+        else {
+          auto *curr = _begin;
+
+
+          while (curr != _back ){
+
+              if( curr != _back && curr->next()->value() == before ) {
+                auto *newNode = ListNode::create( theValue );
+                newNode->insertAfter( curr );
+                ++_length;
+                break;
+              }
+          curr = curr->next();
           }
         }
-  }
-
-
+        }
 }
+
+
 
 void List::apply( const ApplyFunction &interface ) {
   interface.apply( *this );
