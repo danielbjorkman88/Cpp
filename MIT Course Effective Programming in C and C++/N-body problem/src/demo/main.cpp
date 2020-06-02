@@ -2,13 +2,14 @@
 
 #include <iostream>
 #include <fstream>
-
-///#include <GLFW/glfw3.h>
+#include <unistd.h>
+#include <GLFW/glfw3.h>
 
 int main() {
   try {
     std::ifstream input{ "resources/nbody/binary-system-simple.txt" };
     nbody::Simulation sim{input};
+    chdir("/tmp");
     for( int i = 0; i < 40; ++i ) {
       std::cout << "==EVOLUTION " << i + 1 << "\n";
       sim.saveRun(i);

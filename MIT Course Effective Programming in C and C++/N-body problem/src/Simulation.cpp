@@ -43,7 +43,7 @@ namespace nbody {
   }
 
   void Simulation::saveRun(int i) const {
-    std::string newname = _name + std::to_string(i);
+    std::string newname = std::to_string(i) + _name;
     std::ofstream output{ newname };
     _system->writeState( output);
   }
