@@ -19,7 +19,7 @@ namespace nbody {
     Simulation( std::istream &input ) : _system{new System(input)}, _name{ generateName() } {}
     void evolveSystem( int nSteps, float dt );
     void loadRun( std::istream &input );
-    void saveRun() const;
+    void saveRun(int i) const;
   };
 
 } // namespace nbody

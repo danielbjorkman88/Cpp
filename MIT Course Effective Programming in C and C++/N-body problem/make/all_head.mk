@@ -14,13 +14,16 @@ DEV_DIR := .
 BUILD_DIR := $(DEV_DIR)/build
 INSTALL_DIR := $(DEV_DIR)/install
 GTEST_DIR := $(DEV_DIR)/third_party/gtest
+OPENGL_DIR := $(DEV_DIR)/Dependencies/GLFW
+SYSTEMFILES_DIR := $(DEV_DIR)/Dependencies
+##/Dependencies\GLFW\include
 
 ## The compilers and programs to use
 SHELL := /bin/sh
 CC := gcc
 # If you're a Mac user and only have clang,
 # you'll want to change CXX and LD to clang++.
-CXX := g++
+CXX := g++ 
 LD := g++
 CP := cp -r
 RSYNC := rsync -iCau --exclude='\.*' --delete
@@ -29,19 +32,32 @@ RM := rm -f
 ZIP := zip
 MKDIR := mkdir -p
 
+
+FLAGS_OPENGL = -lglut -lglfw -lGL -lGLU
+
+glfw = $(DEV_DIR)/third_party/glfw-3.2.1
+glfw_inc = $(glfw)/include
+glfw_lib = $(glfw)/lib64
+
+INCLUDES = -I$(glfw_inc)
+LIBRARIES = -L$(glfw_lib) 
+
+
 ## Directories to include headers from
 INCLUDE_FLAGS := -I$(INSTALL_DIR)/include \
 								 -I$(GTEST_DIR)/include \
-								 -I$(GTEST_DIR)
+								 -I$(GTEST_DIR) \
+								 -I$(OPENGL_DIR)/include
 
 ## Warning flags to use during compilation
-FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic
+FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic -ggdb -O3 $(INCLUDES)
 # Use the C99 standard
 CFLAGS := -std=c99 $(FLAGS)
 # Use the C++11 standard and warn on violations of Meyers' "Effective C++"
-CXXFLAGS := -std=c++11 -Weffc++ $(FLAGS)
+CXXFLAGS := -std=c++11 -Weffc++ $(FLAGS) -Wall -ggdb -O3 $(INCLUDES)
 # Flags for the linker; link to math and pthread (required for gtest)
-LDFLAGS := -L$(INSTALL_DIR)/lib -L$(GTEST_DIR)/lib -lm -lpthread
+LDFLAGS := -L$(INSTALL_DIR)/lib -L$(GTEST_DIR)/lib -lm -lpthread -L$(OPENGL_DIR)/lib-vc2019 $(LIBRARIES) ${FLAGS_OPENGL}
+
 
 ## Turn on debugging symbols and disable optimizations when running 'make'
 DEBUG_FLAGS := -g -O0 -D _DEBUG
