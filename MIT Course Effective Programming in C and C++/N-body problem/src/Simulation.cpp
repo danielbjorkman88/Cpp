@@ -48,8 +48,4 @@ namespace nbody {
     _system->writeState( output);
   }
 
-  Body* Simulation::getfirstBody() const{
-    return _system->getBody();
-  }
-
 } // namespace nbody

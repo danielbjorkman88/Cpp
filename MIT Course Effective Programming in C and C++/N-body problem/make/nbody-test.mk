@@ -5,6 +5,7 @@ vpath %.cpp $(DEV_DIR)/test
 ## named list-test.x which will run all of our unit tests.
 TARGET_PROJ_TEST := $(INSTALL_DIR)/test/$(PROJ_NAME)-test.x
 BUILD_DIR_PROJ_TEST := $(BUILD_DIR)/$(PROJ_NAME)-test
+BUILD_DIR_PROJ_TEST := $(BUILD_DIR)/$(PROJ_NAME)-test.exe
 
 ## nbody-test.x depends on libnbody.a having been created first
 $(TARGET_PROJ_TEST) : $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a
@@ -20,6 +21,7 @@ OBJECTS_PROJ_TEST := \
 	$(BUILD_DIR_PROJ_TEST)/$(PROJ_NAME)-test.o \
 	$(BUILD_DIR_PROJ_TEST)/vectorTest.o \
 	$(BUILD_DIR_PROJ_TEST)/simulationTest.o \
+	$(BUILD_DIR_PROJ_TEST)/systemTest.o \
 	#$(BUILD_DIR_PROJ_TEST)/add-more.o \
 	#$(BUILD_DIR_PROJ_TEST)/unit-tests.o \
 	#$(BUILD_DIR_PROJ_TEST)/right-here!.o \
