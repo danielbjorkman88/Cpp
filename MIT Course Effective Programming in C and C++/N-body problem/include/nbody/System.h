@@ -33,6 +33,7 @@ namespace nbody {
     void update( float dt );
     void setSoftening( float soft ) { _softFactor = soft; }
     void setDamping( float damp ) { _dampingFactor = damp; }
+    Body* getBody() const {return _body;}
   };
 
 } // namespace nbody
