@@ -16,3 +16,5 @@ MIT Course Effective Programming in C and C++/N-body problem/include/glfw3dll.li
 MIT Course Effective Programming in C and C++/N-body problem/Dependencies/shell32.lib
 MIT Course Effective Programming in C and C++/N-body problem/Dependencies/OpenGL32.Lib
 MIT Course Effective Programming in C and C++/N-body problem/include/glfw3.dll
+*.db
+*.opendb

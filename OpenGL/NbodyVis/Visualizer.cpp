@@ -3,6 +3,30 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+static unsigned int CompileShader(unsigned int type, const std::string& source) {
+
+    unsigned int id = glCreateShader(GL_VERTEX_SHADER);
+    const char* src = source.c_str();
+    glShaderSource(id, 1, &src, nullptr);
+    glCompileShader(id);
+
+    return id;
+}
+
+
+static int CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
+    unsigned int program = glCreateProgram();
+    unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+    unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+    glAttachShader(program, vs);
+    glAttachShader(program, fs);
+    glLinkProgram(program);
+    glValidateProgram(program);
+
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+}
+
 
 int main(void)
 {
@@ -40,6 +64,9 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
 
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*2, 0); // 0 = first attribute, 2 = size of vertex
+     
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
