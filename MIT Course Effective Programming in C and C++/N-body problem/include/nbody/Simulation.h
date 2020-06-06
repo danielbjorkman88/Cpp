@@ -15,6 +15,7 @@ namespace nbody {
     Simulation& operator=( const Simulation& sim ) = delete;
     std::string generateName();
   public:
+    ~Simulation(){ delete [] _system; delete [] _name; }
     Simulation() : _system{nullptr}, _name{ generateName() } {}
     Simulation( std::istream &input ) : _system{new System(input)}, _name{ generateName() } {}
     std::string getName(){ return _name;};
