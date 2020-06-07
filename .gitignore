@@ -34,3 +34,4 @@ OpenGL/NbodyVis/Debug/Visualizer.obj
 OpenGL/NbodyVis/.vs/NbodyVis/v16/.suo
 *.log
 *.obj
+*.ipch

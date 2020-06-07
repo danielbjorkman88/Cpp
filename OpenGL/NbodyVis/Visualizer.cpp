@@ -7,18 +7,8 @@
 #include <sstream>
 #include <cassert>
 
-
-static void GLClearError() {
-    while (glGetError() != GL_NO_ERROR);
-}
-
-static void GLCheckError() {
-
-    while (GLenum error = glGetError()) {
-        std::cout << "[OpenGL] " << error << std::endl;
-    }
-}
-
+#include "Renderer.h"
+#include "VertexBuffer.h"
 
 
 struct ShaderProgramSource {
