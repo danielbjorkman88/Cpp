@@ -7,6 +7,20 @@
 #include <sstream>
 #include <cassert>
 
+
+static void GLClearError() {
+    while (glGetError() != GL_NO_ERROR);
+}
+
+static void GLCheckError() {
+
+    while (GLenum error = glGetError()) {
+        std::cout << "[OpenGL] " << error << std::endl;
+    }
+}
+
+
+
 struct ShaderProgramSource {
     std::string VertexSource;
     std::string FragmentSource;
@@ -162,9 +176,12 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
         
-        ///glDrawArrays(GL_TRIANGLES, 0, 6); /// DRaw call
+        ///glDrawArrays(GL_TRIANGLES, 0, 6); /// Draw call
+
+        GLClearError();
         glUniform4f(location, r, 0.3f, 0.8f, 1.0f);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        GLCheckError();
 
         if (r > 1.0f) {
             increment = -0.0005f;

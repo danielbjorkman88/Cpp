@@ -33,3 +33,4 @@ OpenGL/NbodyVis/Debug/Visualizer.obj
 *.ilk
 OpenGL/NbodyVis/.vs/NbodyVis/v16/.suo
 *.log
+*.obj
