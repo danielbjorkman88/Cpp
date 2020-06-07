@@ -4,8 +4,11 @@
 #include <GLFW/glfw3.h>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <sstream>
 #include <cassert>
+#include <nbody/Body.h>
+#include <nbody/Vector3.h>
 
 #include "Renderer.h"
 #include "VertexBuffer.h"
@@ -19,6 +22,34 @@ struct ShaderProgramSource {
     std::string FragmentSource;
 };
 
+struct circleLocations {
+    std::vector<float> xes;
+    std::vector<float> yes;
+};
+
+struct circles {
+    std::vector<circleLocations> circle;
+};
+
+static void readSim(const std::string &filepath) {
+
+    circles circle;
+    circleLocations thisCircle;
+    thisCircle.xes.push_back(5.0);
+    thisCircle.yes.push_back( 6.0);
+    circle.circle.push_back(thisCircle);
+
+    std::cout << circle.circle[0].xes[0] << " " <<circle.circle[0].yes[0] << std::endl;
+
+    std::ifstream stream(filepath);
+    std::string line;
+    getline(stream, line);
+    int nbodies = std::stoi(line);
+
+    while (getline(stream, line)) {
+        std::cout << line << std::endl;
+    }
+}
 
 static ShaderProgramSource ParseShader(const std::string &filepath) {
     
@@ -166,6 +197,7 @@ int main(void)
 
     ShaderProgramSource source = ParseShader("myshader.shader");
 
+    readSim("C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/0200763345-sim.txt");
 
     unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
     glUseProgram(shader);
