@@ -11,6 +11,9 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
+
+# define PI           3.14159265358979323846  /* pi */
+
 struct ShaderProgramSource {
     std::string VertexSource;
     std::string FragmentSource;
@@ -90,6 +93,23 @@ static unsigned int CreateShader(const std::string& vertexShader, const std::str
     return program;
 }
 
+void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius) {
+    int i;
+    int triangleAmount = 20; //# of triangles used to draw circle
+
+    //GLfloat radius = 0.8f; //radius
+    GLfloat twicePi = 2.0f * PI;
+
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x, y); // center of circle
+    for (i = 0; i <= triangleAmount; i++) {
+        glVertex2f(
+            x + (radius * cos(i * twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+        );
+    }
+    glEnd();
+}
 
 int main(void)
 {
@@ -118,6 +138,7 @@ int main(void)
 
     std::cout << "GL Version: " << glGetString(GL_VERSION) << std::endl;
 
+
     float positions[] = {
        -0.5f, -0.5f,
         0.5f, -0.5f,
@@ -130,16 +151,18 @@ int main(void)
         2,3,0
     };
 
+
     /// Vertex Buffer
     VertexBuffer vb(positions, 4 * 2 * sizeof(float));
-    
+
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*2, 0); // 0 = first attribute, 2 = size of vertex
-     
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // 0 = first attribute, 2 = size of vertex
+
     /// Index Buffer
     IndexBuffer ib(indicies, 6);
 
+    
 
     ShaderProgramSource source = ParseShader("myshader.shader");
 
@@ -161,9 +184,15 @@ int main(void)
         ///glDrawArrays(GL_TRIANGLES, 0, 6); /// Draw call
 
         GLClearError();
-        glUniform4f(location, r, 0.3f, 0.8f, 1.0f);
+        glUniform4f(location, r, 1.0f, 1.0f, 1.0f);
         ib.Bind();
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        ///glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+        GLfloat x = 0;
+        GLfloat y = 0;
+        GLfloat radius = 0.6;
+
+        drawFilledCircle(x , y , r);
         GLCheckError();
 
         if (r > 1.0f) {
@@ -182,7 +211,7 @@ int main(void)
         glfwPollEvents();
     }
 
-    ///glDeleteProgram(shader);
+    glDeleteProgram(shader);
 
     glfwTerminate();
     return 0;
