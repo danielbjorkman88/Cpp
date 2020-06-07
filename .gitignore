@@ -24,3 +24,12 @@ MIT Course Effective Programming in C and C++/N-body problem/include/glfw3.dll
 OpenGL/NbodyVis/Debug/Visualizer.obj
 *.exe
 *.db
+*.pdb
+*.pdb
+*.idb
+*.tlog
+*.pdb
+*.exe
+*.ilk
+OpenGL/NbodyVis/.vs/NbodyVis/v16/.suo
+*.log
