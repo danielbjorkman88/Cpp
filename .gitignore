@@ -37,3 +37,9 @@ OpenGL/NbodyVis/.vs/NbodyVis/v16/.suo
 *.ipch
 *.obj
 *.obj
+*.exe
+*.log
+*.exe
+*.ilk
+*.pdb
+*.tlog

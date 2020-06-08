@@ -33,22 +33,54 @@ struct circles {
 
 static void readSim(const std::string &filepath) {
 
-    circles circle;
+    circles mycircles;
     circleLocations thisCircle;
-    thisCircle.xes.push_back(5.0);
-    thisCircle.yes.push_back( 6.0);
-    circle.circle.push_back(thisCircle);
+    //std::ifstream stream(filepath);
+    //std::string line;
+    //getline(stream, line);
+    for (int i = 0; i < 2; ++i) {
+        circleLocations thisCircle;
+        mycircles.circle.push_back(thisCircle);
+    }
 
-    std::cout << circle.circle[0].xes[0] << " " <<circle.circle[0].yes[0] << std::endl;
+    ///mycircles.circle[0].xes.push_back( 5.0);
+    //mycircles.circle[1].xes.push_back(7.0);
+    //mycircles.circle[0].yes.push_back(6.0);
+    //std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[1].xes[0] << std::endl;
+
+    std::cout << filepath << std::endl; 
+    std::string firstPart = filepath.substr(0, filepath.length() - 18) ;
+    std::cout << firstPart << std::endl;
+    std::string secondPart = filepath.substr(filepath.length() - 18, 18);
+    std::cout << secondPart << std::endl;
+    std::cout << secondPart.replace(0,0,"4") << std::endl;
+
 
     std::ifstream stream(filepath);
     std::string line;
     getline(stream, line);
     int nbodies = std::stoi(line);
+    std::cout << nbodies << std::endl;
 
-    while (getline(stream, line)) {
-        std::cout << line << std::endl;
+    
+    for (int i = 0; i < nbodies; ++i) {
+        getline(stream, line);
+        int firstStop = line.find(' ');
+        float x = stof(line.substr(0, firstStop));
+        ///std::cout << x << std::endl;
+        int secondStop = line.substr(firstStop + 1, 20).find(" ");
+        float y = stof(line.substr(firstStop + 1, secondStop));
+        ///std::cout << y << std::endl;
+        mycircles.circle[i].xes.push_back(x);
+        mycircles.circle[i].yes.push_back(y);
+
     }
+
+    ///std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[0].yes[0] << std::endl;
+    //std::cout << mycircles.circle[1].xes[0] << " " << mycircles.circle[1].yes[0] << std::endl;
+    //while (getline(stream, line)) {
+    //    std::cout << line << std::endl;
+    //}
 }
 
 static ShaderProgramSource ParseShader(const std::string &filepath) {
