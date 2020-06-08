@@ -53,15 +53,18 @@ static void readSim(const std::string &filepath) {
     std::cout << firstPart << std::endl;
     std::string secondPart = filepath.substr(filepath.length() - 18, 18);
     std::cout << secondPart << std::endl;
-    std::cout << secondPart.replace(0,0,"4") << std::endl;
+    ///std::cout << secondPart.replace(0,0,"4") << std::endl;
 
     int nbodies;
     int firstStop;
     int secondStop;
     float x;
     float y;
+    int j = 10;
+    secondPart.replace(0, 1, std::to_string(j));
+    std::cout << secondPart << std::endl;
 
-    std::ifstream stream(filepath);
+    std::ifstream stream(firstPart + secondPart);
     std::string line;
     getline(stream, line);
     nbodies = std::stoi(line);
