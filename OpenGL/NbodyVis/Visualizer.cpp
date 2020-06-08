@@ -55,28 +55,31 @@ static void readSim(const std::string &filepath) {
     std::cout << secondPart << std::endl;
     std::cout << secondPart.replace(0,0,"4") << std::endl;
 
+    int nbodies;
+    int firstStop;
+    int secondStop;
+    float x;
+    float y;
 
     std::ifstream stream(filepath);
     std::string line;
     getline(stream, line);
-    int nbodies = std::stoi(line);
+    nbodies = std::stoi(line);
     std::cout << nbodies << std::endl;
-
-    
     for (int i = 0; i < nbodies; ++i) {
         getline(stream, line);
-        int firstStop = line.find(' ');
-        float x = stof(line.substr(0, firstStop));
+        firstStop = line.find(' ');
+        x = stof(line.substr(0, firstStop));
         ///std::cout << x << std::endl;
-        int secondStop = line.substr(firstStop + 1, 20).find(" ");
-        float y = stof(line.substr(firstStop + 1, secondStop));
+        secondStop = line.substr(firstStop + 1, 20).find(" ");
+        y = stof(line.substr(firstStop + 1, secondStop));
         ///std::cout << y << std::endl;
         mycircles.circle[i].xes.push_back(x);
         mycircles.circle[i].yes.push_back(y);
 
     }
 
-    ///std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[0].yes[0] << std::endl;
+    std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[0].yes[0] << std::endl;
     //std::cout << mycircles.circle[1].xes[0] << " " << mycircles.circle[1].yes[0] << std::endl;
     //while (getline(stream, line)) {
     //    std::cout << line << std::endl;
