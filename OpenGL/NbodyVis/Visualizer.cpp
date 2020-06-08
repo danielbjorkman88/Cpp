@@ -55,34 +55,40 @@ static void readSim(const std::string &filepath) {
     std::cout << secondPart << std::endl;
     ///std::cout << secondPart.replace(0,0,"4") << std::endl;
 
-    int nbodies;
+    int nbodies = 2;
     int firstStop;
     int secondStop;
     float x;
     float y;
-    int j = 10;
-    secondPart.replace(0, 1, std::to_string(j));
-    std::cout << secondPart << std::endl;
+    int nFiles = 41;
+    ///int j = 10;
+    for (int j = 0; j < nFiles; ++j) {
 
-    std::ifstream stream(firstPart + secondPart);
-    std::string line;
-    getline(stream, line);
-    nbodies = std::stoi(line);
-    std::cout << nbodies << std::endl;
-    for (int i = 0; i < nbodies; ++i) {
+        secondPart = filepath.substr(filepath.length() - 18, 18);
+        secondPart.replace(0, 1, std::to_string(j));
+        std::cout << secondPart << std::endl;
+
+        std::ifstream stream(firstPart + secondPart);
+        std::string line;
         getline(stream, line);
-        firstStop = line.find(' ');
-        x = stof(line.substr(0, firstStop));
-        ///std::cout << x << std::endl;
-        secondStop = line.substr(firstStop + 1, 20).find(" ");
-        y = stof(line.substr(firstStop + 1, secondStop));
-        ///std::cout << y << std::endl;
-        mycircles.circle[i].xes.push_back(x);
-        mycircles.circle[i].yes.push_back(y);
+        //nbodies = std::stoi(line);
+        //std::cout << nbodies << std::endl;
+        for (int i = 0; i < nbodies; ++i) {
+            getline(stream, line);
+            firstStop = line.find(' ');
+            x = stof(line.substr(0, firstStop));
+            ///std::cout << x << std::endl;
+            secondStop = line.substr(firstStop + 1, 20).find(" ");
+            y = stof(line.substr(firstStop + 1, secondStop));
+            ///std::cout << y << std::endl;
+            mycircles.circle[i].xes.push_back(x);
+            mycircles.circle[i].yes.push_back(y);
 
+        }
     }
-
-    std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[0].yes[0] << std::endl;
+    for (int i = 0; i < nFiles; ++i) {
+        std::cout << i << " " << mycircles.circle[0].xes[i] << " " << mycircles.circle[0].yes[i] << std::endl;
+    }
     //std::cout << mycircles.circle[1].xes[0] << " " << mycircles.circle[1].yes[0] << std::endl;
     //while (getline(stream, line)) {
     //    std::cout << line << std::endl;
@@ -235,7 +241,7 @@ int main(void)
 
     ShaderProgramSource source = ParseShader("myshader.shader");
 
-    readSim("C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/0200763345-sim.txt");
+    readSim("C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/0200834644-sim.txt");
 
     unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
     glUseProgram(shader);

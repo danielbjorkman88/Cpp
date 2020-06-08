@@ -19,7 +19,7 @@ int main() {
       sim.saveRun(i);
       sim.evolveSystem( 1e4, 0.000001 );
     }
-    sim.saveRun(41);
+    sim.saveRun(40);
     return 0;
   } catch( const std::exception &e ) {
     std::cerr << "Error: " << e.what() << "\n";
