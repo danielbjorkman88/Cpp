@@ -9,6 +9,7 @@
 namespace nbody {
 
   // Silly function for generating a unique simulation file run output name
+
   std::string Simulation::generateName() {
     using std::chrono::system_clock;
     using namespace std::chrono;

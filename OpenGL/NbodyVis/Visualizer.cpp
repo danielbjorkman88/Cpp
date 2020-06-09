@@ -9,6 +9,8 @@
 #include <cassert>
 #include <nbody/Body.h>
 #include <nbody/Vector3.h>
+#include <chrono>
+#include <thread>
 
 #include "Renderer.h"
 #include "VertexBuffer.h"
@@ -31,44 +33,44 @@ struct circles {
     std::vector<circleLocations> circle;
 };
 
-static void readSim(const std::string &filepath) {
+int getBodiesCount(const std::string& filepath) {
+    std::ifstream stream(filepath);
+    std::string line;
+    getline(stream, line);
+    int nbodies = std::stoi(line);
+    return nbodies;
+}
+
+circles readSim(const std::string &filepath, std::string& filename, int nbodies, int nFiles) {
 
     circles mycircles;
-    circleLocations thisCircle;
+    //circleLocations thisCircle;
     //std::ifstream stream(filepath);
     //std::string line;
     //getline(stream, line);
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < nbodies; ++i) {
         circleLocations thisCircle;
         mycircles.circle.push_back(thisCircle);
     }
 
-    ///mycircles.circle[0].xes.push_back( 5.0);
-    //mycircles.circle[1].xes.push_back(7.0);
-    //mycircles.circle[0].yes.push_back(6.0);
-    //std::cout << mycircles.circle[0].xes[0] << " " << mycircles.circle[1].xes[0] << std::endl;
 
-    std::cout << filepath << std::endl; 
-    std::string firstPart = filepath.substr(0, filepath.length() - 18) ;
-    std::cout << firstPart << std::endl;
-    std::string secondPart = filepath.substr(filepath.length() - 18, 18);
-    std::cout << secondPart << std::endl;
-    ///std::cout << secondPart.replace(0,0,"4") << std::endl;
+    std::cout << filepath << std::endl;
+    std::cout << filename << std::endl;
 
-    int nbodies = 2;
+    std::string secondPart;
     int firstStop;
     int secondStop;
     float x;
     float y;
-    int nFiles = 41;
+    
     ///int j = 10;
     for (int j = 0; j < nFiles; ++j) {
 
-        secondPart = filepath.substr(filepath.length() - 18, 18);
+        secondPart = filename;
         secondPart.replace(0, 1, std::to_string(j));
         std::cout << secondPart << std::endl;
 
-        std::ifstream stream(firstPart + secondPart);
+        std::ifstream stream(filepath + secondPart);
         std::string line;
         getline(stream, line);
         //nbodies = std::stoi(line);
@@ -93,6 +95,7 @@ static void readSim(const std::string &filepath) {
     //while (getline(stream, line)) {
     //    std::cout << line << std::endl;
     //}
+    return mycircles;
 }
 
 static ShaderProgramSource ParseShader(const std::string &filepath) {
@@ -232,7 +235,7 @@ int main(void)
 
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // 0 = first attribute, 2 = size of vertex
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(float) * 2, 0); // 0 = first attribute, 2 = size of vertex
 
     /// Index Buffer
     IndexBuffer ib(indicies, 6);
@@ -241,7 +244,13 @@ int main(void)
 
     ShaderProgramSource source = ParseShader("myshader.shader");
 
-    readSim("C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/0200834644-sim.txt");
+    std::string filename = "0200922173-sim.txt";
+    std::string filepath = "C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/";
+    int nFiles = 81;
+    int nbodies = getBodiesCount(filepath + filename);
+    circles mycircles = readSim(filepath , filename, nbodies, nFiles);
+
+
 
     unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource);
     glUseProgram(shader);
@@ -249,10 +258,9 @@ int main(void)
     int location = glGetUniformLocation(shader, "u_Color");
     assert(location != -1);
     
-    float r = 0.0f;
-    float increment = 0.0005f;
+    int i = 0;
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window) )
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
@@ -260,26 +268,27 @@ int main(void)
         ///glDrawArrays(GL_TRIANGLES, 0, 6); /// Draw call
 
         GLClearError();
-        glUniform4f(location, r, 1.0f, 1.0f, 1.0f);
+        glUniform4f(location, 0.0f, 1.0f, 1.0f, 1.0f);
         ib.Bind();
         ///glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        GLfloat radius = 0.01;
 
-        GLfloat x = 0;
-        GLfloat y = 0;
-        GLfloat radius = 0.6;
+        for (int j = 0; j < nbodies ; ++j){
+            GLfloat x = mycircles.circle[j].xes[i];
+            GLfloat y = mycircles.circle[j].yes[i];;
+            drawFilledCircle(x , y , radius);
+        }
 
-        drawFilledCircle(x , y , r);
+
         GLCheckError();
 
-        if (r > 1.0f) {
-            increment = -0.0005f;
+
+        i += 1;
+        if (i >= nFiles) {
+            i = 0;
         }
-        else if (r < 0.0f) {
-            increment = 0.0005f;
-        };
 
-        r += increment;
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 

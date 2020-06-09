@@ -6,15 +6,34 @@
 #include <stdexcept>
 #include <iostream>
 #include <iomanip>
+#include <stdlib.h>
 
 namespace nbody {
 
   inline void System::interactBodies( size_t i, size_t j, float softFactor, Vector3f &acc ) const {
     Vector3f r = _body[j].position() - _body[i].position();
     float distance = r.norm() + softFactor;
+
+    //Elastic Scattering
+    if (distance <= 2*BODY_RADIUS){
+        if (_body[i].velocity().y() == 0.0f && _body[j].velocity().y() == 0.0f){
+            float v1New = (_body[i].mass() - _body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity().x()
+                           + (2*_body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity().x() ;
+            float v2New = (2*_body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity().x()
+                           + (_body[j].mass() - _body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity().x() ;
+            _body[i].velocity().setX( v1New);
+            _body[j].velocity().setX( v2New);
+        }
+    }
+
     float invDist = 1.0f / distance;
     float invDistCubed = cube( invDist );
-    acc = acc + NEWTON_G * _body[j].mass() * invDistCubed * r;
+    if (distance > 2*BODY_RADIUS){
+        acc = acc + NEWTON_G * _body[j].mass() * invDistCubed * r;
+    }
+    else{
+        acc = { 0.0f, 0.0f, 0.0f };
+    }
   }
 
   void System::computeGravitation() {
@@ -44,6 +63,7 @@ namespace nbody {
       _body[i].velocity() = v;
     }
   }
+
 
   void System::update( float dt ) {
     computeGravitation();

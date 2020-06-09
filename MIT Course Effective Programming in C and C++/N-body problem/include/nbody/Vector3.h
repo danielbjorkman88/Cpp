@@ -14,6 +14,9 @@ public:
   inline T z() const { return _z; }
   T norm() const;
   T normsq() const;
+  void setX(float x){ _x = x;}
+  void setY(float y){ _y = y;}
+  void setZ(float z){ _z = z;}
   friend std::istream& operator>>( std::istream &is, Vector3<T> &vec ) {
     is >> vec._x >> vec._y >> vec._z;
     return is;
@@ -29,6 +32,8 @@ template<typename T>
 inline T Vector3<T>::norm() const {
   return sqrt( normsq() );
 }
+
+
 
 template<>
 inline float Vector3<float>::norm() const {

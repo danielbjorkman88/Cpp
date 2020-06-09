@@ -18,3 +18,14 @@ TEST( vectorTest, crossProduct ) {
   ASSERT_FLOAT_EQ( ( cross( j, k ) - i ).norm(), 0.0f );
   ASSERT_FLOAT_EQ( ( cross( k, i ) - j ).norm(), 0.0f );
 }
+
+TEST( vectorTest, setValues ) {
+  auto v = Vector3f{ 1, 2, 3 };
+  auto i = Vector3f{ 1, 0, 0 };
+  v.setX(0.4f);
+  i.setY(-0.34f);
+  v.setZ(-v.z());
+  ASSERT_FLOAT_EQ( v.x(), 0.4f );
+  ASSERT_FLOAT_EQ( i.y(), -0.34f );
+  ASSERT_FLOAT_EQ( v.z(), -3 );
+}
