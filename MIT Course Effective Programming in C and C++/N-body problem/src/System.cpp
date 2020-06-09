@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 #include <stdlib.h>
+#include <thread>
 
 namespace nbody {
 
@@ -38,6 +39,8 @@ namespace nbody {
     }
   }
 
+
+
   void System::computeGravitation() {
     for( size_t i = 0; i < _nBodies; ++i ) {
       Vector3f acc{ 0.0f, 0.0f, 0.0f };
@@ -48,6 +51,7 @@ namespace nbody {
       }
       _body[i].force() = acc;
     }
+
   }
 
   void System::integrateSystem( float dt ) {

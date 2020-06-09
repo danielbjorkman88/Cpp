@@ -33,7 +33,7 @@ ZIP := zip
 MKDIR := mkdir -p
 
 
-FLAGS_OPENGL = -lglut -lglfw -lGL -lGLU
+FLAGS_OPENGL = -lglut -lglfw -lGL -lGLU -pthread
 
 glfw = $(DEV_DIR)/third_party/glfw-3.2.1
 glfw_inc = $(glfw)/include
