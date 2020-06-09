@@ -244,7 +244,7 @@ int main(void)
 
     ShaderProgramSource source = ParseShader("myshader.shader");
 
-    std::string filename = "0200922173-sim.txt";
+    std::string filename = "0200923827-sim.txt";
     std::string filepath = "C:/Users/malyr/OneDrive/Dokument/GitHub/Cpp/MIT Course Effective Programming in C and C++/N-body problem/";
     int nFiles = 81;
     int nbodies = getBodiesCount(filepath + filename);

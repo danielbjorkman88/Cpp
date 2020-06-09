@@ -16,14 +16,16 @@ namespace nbody {
 
     //Elastic Scattering
     if (distance <= 2*BODY_RADIUS){
-        if (_body[i].velocity().y() == 0.0f && _body[j].velocity().y() == 0.0f){
-            float v1New = (_body[i].mass() - _body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity().x()
-                           + (2*_body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity().x() ;
-            float v2New = (2*_body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity().x()
-                           + (_body[j].mass() - _body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity().x() ;
-            _body[i].velocity().setX( v1New);
-            _body[j].velocity().setX( v2New);
-        }
+            Vector3f v1New = (_body[i].mass() - _body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity()
+                           + (2*_body[j].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity() ;
+            Vector3f v2New = (2*_body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[i].velocity()
+                           + (_body[j].mass() - _body[i].mass())/(_body[i].mass() + _body[j].mass())* _body[j].velocity() ;
+            _body[i].velocity().setX( v1New.x());
+            _body[j].velocity().setX( v2New.x());
+            _body[i].velocity().setY( v1New.y());
+            _body[j].velocity().setY( v2New.y());
+            _body[i].velocity().setZ( v1New.z());
+            _body[j].velocity().setZ( v2New.z());
     }
 
     float invDist = 1.0f / distance;
